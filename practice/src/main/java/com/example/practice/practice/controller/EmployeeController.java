@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -49,5 +50,11 @@ public class EmployeeController {
     public ResponseEntity<String> deleteEmployeeById(@PathVariable long employeeId) {
         return employeeService.deleteEmployee(employeeId);
 
+    }
+
+    @GetMapping("/getListOfEmployees")
+    public List<EmployeeDto> getListofEmployees(){
+      List<Employee> employees =  employeeService.getAllEmployees();
+       return employeeConverter.convertToDtoList(employees);
     }
 }

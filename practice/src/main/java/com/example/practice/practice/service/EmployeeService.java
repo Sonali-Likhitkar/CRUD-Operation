@@ -3,6 +3,8 @@ package com.example.practice.practice.service;
 import com.example.practice.practice.dto.EmployeeDto;
 import com.example.practice.practice.entity.Employee;
 import org.springframework.http.ResponseEntity;
+
+import java.util.List;
 import java.util.Optional;
 
 
@@ -12,5 +14,7 @@ public interface EmployeeService {
     Optional<Employee> updateEmployee(long employeeId, Employee employee);
     public ResponseEntity<String> deleteEmployee(long employeeId);
 
+
+  public   List<Employee> getAllEmployees();
 }
 
