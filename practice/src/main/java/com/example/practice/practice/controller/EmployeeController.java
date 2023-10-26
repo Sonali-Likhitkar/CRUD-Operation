@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Optional;
 
 @RestController
+@RequestMapping("employeeController")
 public class EmployeeController {
 
     @Autowired
@@ -21,7 +22,6 @@ public class EmployeeController {
     @Autowired
     private EmployeeConverter employeeConverter;
 
-
     @PostMapping("/createEmployee")
     public ResponseEntity<EmployeeDto> createEmp(@RequestBody EmployeeDto employeeDto){
         Employee employee = EmployeeConverter.convertToEntity(employeeDto);
@@ -29,7 +29,6 @@ public class EmployeeController {
         EmployeeDto creteEmpDto = EmployeeConverter.convertToDto(createEmployee);
         return ResponseEntity.status(HttpStatus.CREATED).body(creteEmpDto);
     }
-
 
     @GetMapping("/getEmployeeById/{employeeId}")
     public ResponseEntity<EmployeeDto> getEmployeeById(@PathVariable long employeeId) {
@@ -40,13 +39,22 @@ public class EmployeeController {
     public ResponseEntity<EmployeeDto> updateEmployee(@PathVariable long employeeId,@RequestBody EmployeeDto employeeDto) {
         Employee employee = EmployeeConverter.convertToEntity(employeeDto);
         Optional<Employee> updateEmployee = employeeService.updateEmployee(employeeId, employee);
-        if (updateEmployee != null) {
+        if (updateEmployee.isPresent()) {
             EmployeeDto updateEmpDto = EmployeeConverter.convertToDto(updateEmployee.get());
              return ResponseEntity.status(HttpStatus.OK).body(updateEmpDto);
         } else {
             return ResponseEntity.notFound().build();
         }
+    }
+    @DeleteMapping("/deleteEmployee/{employeeId}")
+    public ResponseEntity<String> deleteEmployeeById(@PathVariable long employeeId){
+      return employeeService.deleteEmployee(employeeId);
 
     }
+//    @DeleteMapping("/deleteEmployee/{employeeId}")
+//    public ResponseEntity<Void> deleteEmployeeById(@PathVariable long employeeId) {
+//        employeeService.deleteEmployee(employeeId);
+//        return ResponseEntity.noContent().build();
+//    }
 
 }

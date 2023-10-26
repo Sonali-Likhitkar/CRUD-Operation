@@ -6,6 +6,7 @@ import com.example.practice.practice.repository.EmployeeRepository;
 import com.example.practice.practice.service.EmployeeService;
 import com.example.practice.practice.util.EmployeeConverter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
@@ -23,7 +24,6 @@ public class EmployeeServiceImpl implements EmployeeService {
     private EmployeeRepository employeeRepository;
 
 
-
     /**
      * @param employee
      * @return
@@ -31,7 +31,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public Employee createEmployee(Employee employee) {
         employee.setPassword(passwordEncoder.encode(employee.getPassword()));
-         return employeeRepository.save(employee);
+        return employeeRepository.save(employee);
     }
 
     @Override
@@ -65,6 +65,27 @@ public class EmployeeServiceImpl implements EmployeeService {
         } else {
             return Optional.empty();
         }
-
     }
+
+    /**
+     * @param employeeId
+     * @return
+     */
+    @Override
+    public ResponseEntity<String> deleteEmployee(long employeeId) {
+        Optional<Employee> existEmp = employeeRepository.findById(employeeId);
+        if (existEmp.isPresent()) {
+            employeeRepository.deleteById(employeeId);
+            return ResponseEntity.ok().body("employee deleted  Successfully");
+        } else {
+          return ResponseEntity.notFound().build();
+
+        }
+    }
+
+//    @Override
+//    public ResponseEntity<Void> deleteEmployee(long employeeId) {
+//        employeeRepository.deleteById(employeeId);
+//      return null;
+//    }
 }

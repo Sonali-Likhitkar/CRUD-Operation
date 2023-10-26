@@ -76,10 +76,8 @@ public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Excepti
                     new AntPathRequestMatcher("/getById/{studentId}"),
                     new AntPathRequestMatcher("/v3/api-docs/**"),
                     new AntPathRequestMatcher("/swagger-ui/**"),
-                    new AntPathRequestMatcher("/createEmployee"),
-                    new AntPathRequestMatcher("/getEmployeeById/{employeeId}")
-
-            ).permitAll()
+                    new AntPathRequestMatcher("/employeeController/**")
+                    ).permitAll()
             .anyRequest()
             .authenticated()
             .and().exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint)
@@ -89,7 +87,7 @@ public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Excepti
             .and()
             .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
             .build();
-}
+         }
 
     }
 

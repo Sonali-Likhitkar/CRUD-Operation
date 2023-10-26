@@ -9,10 +9,9 @@ import java.util.Optional;
 
 public interface EmployeeService {
     public Employee createEmployee(Employee employee);
-
     public ResponseEntity<EmployeeDto> getEmployeeById(long employeeId);
-
-
     Optional<Employee> updateEmployee(long employeeId, Employee employee);
+    public ResponseEntity<String> deleteEmployee(long employeeId);
+
 }
 
