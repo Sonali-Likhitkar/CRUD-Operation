@@ -6,12 +6,9 @@ import com.example.practice.practice.repository.EmployeeRepository;
 import com.example.practice.practice.service.EmployeeService;
 import com.example.practice.practice.util.EmployeeConverter;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
-
 import org.springframework.stereotype.Service;
-
 import java.util.Optional;
 
 @Service
@@ -22,8 +19,6 @@ public class EmployeeServiceImpl implements EmployeeService {
     private PasswordEncoder passwordEncoder;
     @Autowired
     private EmployeeRepository employeeRepository;
-
-
     /**
      * @param employee
      * @return
@@ -78,14 +73,7 @@ public class EmployeeServiceImpl implements EmployeeService {
             employeeRepository.deleteById(employeeId);
             return ResponseEntity.ok().body("employee deleted  Successfully");
         } else {
-          return ResponseEntity.notFound().build();
-
+            return ResponseEntity.notFound().build();
         }
     }
-
-//    @Override
-//    public ResponseEntity<Void> deleteEmployee(long employeeId) {
-//        employeeRepository.deleteById(employeeId);
-//      return null;
-//    }
 }
