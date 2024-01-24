@@ -1,4 +1,4 @@
-package com.example.practice.practice.dto;
+package com.example.practice.practice.entity.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

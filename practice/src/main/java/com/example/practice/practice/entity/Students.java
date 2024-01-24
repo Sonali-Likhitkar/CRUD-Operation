@@ -27,9 +27,5 @@ public class Students {
     private String address;
     @Column(name = "city")
     private String city;
-    @Transient
-    private Certificate certi;
 
-    public Students(int i, String mail, String sonali, String likhitkar, int i1, String pragtiNagar, String bhopal) {
-    }
 }

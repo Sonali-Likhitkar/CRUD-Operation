@@ -1,6 +1,8 @@
 package com.example.practice.practice.entity;
 import jakarta.persistence.*;
 import lombok.*;
+
+import java.util.Collection;
 import java.util.Date;
 
 @AllArgsConstructor
@@ -10,6 +12,7 @@ import java.util.Date;
 @Entity
 @Table(name="employees")
 public class Employee {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long employeeId;
@@ -28,15 +31,8 @@ public class Employee {
     @Column(name = "birth_date")
     @Temporal(TemporalType.DATE)
     private Date dob;
-//    @Transient
-//    @Lob
-//    @Column(name = "image")
-//    private Byte[] image;
 
 
-////    private Certificate certificate;
-//    @OneToOne
-//    @JoinColumn(name="certificte_id")
-//    private Certificate certificate;
+
 
 }

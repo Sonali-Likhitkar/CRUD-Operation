@@ -1,19 +1,23 @@
 package com.example.practice.practice.controller;
 
-import com.example.practice.practice.entity.Employee;
+import com.example.practice.practice.entity.User;
+import com.example.practice.practice.service.UserService;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
+@RestController
+@RequestMapping("/userController")
 public class UserController {
 
-    public void name(){
-        Employee employee = new Employee();
-        employee.setEmployeeId(1);
-        employee.setFirstName("Sona");
-        employee.setLastName("Likhitkar");
-        employee.setAge(22);
-        employee.setJobTitle("software developer");
-        employee.setPassword("sonali@123");
-
-
+    private  final  UserService userService;
+    public UserController(UserService userService){
+        this.userService= userService;
     }
+
+    @PostMapping("/createUser")
+    public ResponseEntity<User> save(@RequestBody User user){
+        return userService.CreateUser(user);
+    }
+
 
 }

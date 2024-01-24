@@ -1,11 +1,9 @@
-package com.example.practice.practice.dto;
+package com.example.practice.practice.entity.dto;
 
 import jakarta.persistence.Column;
 import jakarta.validation.constraints.Email;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
+
 
 @Getter
 @Builder

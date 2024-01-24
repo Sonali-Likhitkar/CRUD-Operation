@@ -1,14 +1,13 @@
 package com.example.practice.practice.controller;
 
-import com.example.practice.practice.dto.EmployeeDto;
+import com.example.practice.practice.entity.dto.EmployeeDto;
+import com.example.practice.practice.entity.dto.ResetPasswordDto;
 import com.example.practice.practice.entity.Employee;
 import com.example.practice.practice.service.EmployeeService;
 import com.example.practice.practice.util.EmployeeConverter;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 import java.util.Optional;
 
@@ -16,10 +15,11 @@ import java.util.Optional;
 @RequestMapping("employeeController")
 public class EmployeeController {
 
-    @Autowired
-    private EmployeeService employeeService;
-    @Autowired
-    private EmployeeConverter employeeConverter;
+    private final EmployeeService employeeService;
+
+    public EmployeeController(EmployeeService employeeService) {
+        this.employeeService = employeeService;
+    }
 
     @PostMapping("/createEmployee")
     public ResponseEntity<EmployeeDto> createEmp(@RequestBody EmployeeDto employeeDto) {
@@ -49,12 +49,16 @@ public class EmployeeController {
     @DeleteMapping("/deleteEmployee/{employeeId}")
     public ResponseEntity<String> deleteEmployeeById(@PathVariable long employeeId) {
         return employeeService.deleteEmployee(employeeId);
-
     }
 
     @GetMapping("/getListOfEmployees")
-    public List<EmployeeDto> getListofEmployees(){
-      List<Employee> employees =  employeeService.getAllEmployees();
-       return employeeConverter.convertToDtoList(employees);
+    public List<EmployeeDto> getListofEmployees() {
+        List<Employee> employees = employeeService.getAllEmployees();
+        return EmployeeConverter.convertToDtoList(employees);
+    }
+
+    @PutMapping("/resetPassword")
+    public ResponseEntity<String> resetPassword(@RequestBody ResetPasswordDto resetPasswordDto) {
+        return employeeService.resetPassword(resetPasswordDto);
     }
 }

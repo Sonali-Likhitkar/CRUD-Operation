@@ -1,8 +1,6 @@
 package com.example.practice.practice.entity;
 
-import jakarta.persistence.Embeddable;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.*;
 
 @AllArgsConstructor
@@ -13,7 +11,13 @@ import lombok.*;
 public class Certificate {
 
     @Id
-    private  int certificateId ;
-    private String  Course;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long certificateId;
+
+    @Column(name="course")
+    private String course;
+
+    @Column(name="duration")
     private String duration;
+
 }
