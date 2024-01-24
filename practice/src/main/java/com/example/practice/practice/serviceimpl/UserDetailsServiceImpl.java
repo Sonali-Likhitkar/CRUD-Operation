@@ -1,14 +1,11 @@
 package com.example.practice.practice.serviceimpl;
 
 import com.example.practice.practice.constant.UserConstant;
-import com.example.practice.practice.entity.Students;
+import com.example.practice.practice.entity.User;
 import com.example.practice.practice.exception.UserException;
-import com.example.practice.practice.repository.StudentRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.example.practice.practice.repository.UserRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -19,11 +16,10 @@ import java.util.*;
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
 
-    @Autowired
-    private StudentRepository studentRepository;
+    private final UserRepository userRepository;
 
-    public UserDetailsServiceImpl(StudentRepository repository) {
-        this.studentRepository = repository;
+    public UserDetailsServiceImpl(UserRepository userRepository) {
+        this.userRepository = userRepository;
     }
 
     /**
@@ -33,18 +29,18 @@ public class UserDetailsServiceImpl implements UserDetailsService {
      */
     @Override
     public UserDetails loadUserByUsername(String email) {
-       Optional<Students> studentInfo= studentRepository.findByEmail(email);
-//       System.out.println("Student Info ============>"+studentInfo.isEmpty());
-        if(studentInfo.isEmpty())
+        System.out.println("Inside the user details service impl load by user name======"+email);
+        User userInfo= userRepository.findByEmail(email);
+        if(userInfo == null)
         {
             throw new UserException(HttpStatus.UNAUTHORIZED,UserConstant.INVAILD_EMAIL_PASSWORD);
         }
-         return new User(studentInfo.get().getEmail(),studentInfo.get().getPassword(),getAuthority(studentInfo.get()));
+         return new org.springframework.security.core.userdetails.User(userInfo.getEmail(),userInfo.getPassword(),Collections.emptySet());
     }
 
-    private Collection<? extends GrantedAuthority> getAuthority(Students students) {
-        return null;
-    }
+//    private Collection<? extends GrantedAuthority> getAuthority(com.example.practice.practice.entity.User user) {
+//        return null;
+//    }
 //    private Set<SimpleGrantedAuthority> getAuthority(User user) {
 //        Set<SimpleGrantedAuthority> authorities = new HashSet<>();
 ////        user.getRoles().forEach(role -> {

@@ -14,10 +14,9 @@ import java.util.function.Function;
 @Component
 public class JwtHelper {
 
-    //requirement :
     public static final long JWT_TOKEN_VALIDITY = 20*60;
 
-    private String SECRET_KEY = "2634273617gdgsdt63466371ge1723682719GTDG7672361FVAD";
+    private String SECRET_KEY = "afafasfafafasfasfasfafacasdasfasxASFACASDFACASDFASFASFDAFASFASDAADSCSDFADCVSGCFVADXCcadwavfsfarvf";
 
     public String extractUsername(String token) {
         return extractClaim(token, Claims::getSubject);

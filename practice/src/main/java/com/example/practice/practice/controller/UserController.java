@@ -1,9 +1,8 @@
 package com.example.practice.practice.controller;
 
 import com.example.practice.practice.entity.Employee;
-import org.hibernate.Session;
 
-public class NormalController {
+public class UserController {
 
     public void name(){
         Employee employee = new Employee();

@@ -1,8 +1,7 @@
 package com.example.practice.practice.util;
 
-import com.example.practice.practice.dto.EmployeeDto;
+import com.example.practice.practice.entity.dto.EmployeeDto;
 import com.example.practice.practice.entity.Employee;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -14,7 +13,6 @@ public class EmployeeConverter {
 
     public static Employee convertToEntity(EmployeeDto empRequestDto) {
         Employee employee = new Employee();
-        employee.setEmployeeId(empRequestDto.getEmployeeId());
         employee.setJobTitle(empRequestDto.getJobTitle());
         employee.setEmail(empRequestDto.getEmail());
         employee.setPassword(empRequestDto.getPassword());
@@ -39,20 +37,11 @@ public class EmployeeConverter {
 
     }
 
-//    public List<UserDTO>  convertToDTOList(List<User> users)
-//    {
-//        List<UserDTO> userDtoList = new ArrayList<>();
-//        users.stream().forEach(p -> {
-//            userDtoList.add(convertToDto(p));
-//        });
-//        return userDtoList;
-//    }
-
-    public List<EmployeeDto> convertToDtoList(List<Employee> employees) {
+    public static List<EmployeeDto> convertToDtoList(List<Employee> employees) {
         List<EmployeeDto> employeeDtoList = new ArrayList<>();
-        employees.stream().forEach(p -> {
-            employeeDtoList.add(convertToDto(p));
-        });
+        employees.stream().forEach(p -> employeeDtoList.add(convertToDto(p)));
         return employeeDtoList;
     }
+
+
 }
